@@ -17,31 +17,21 @@ public class Main {
 
             showMenu();
 
-            int choice = scanner.nextInt(); //fix and replace w/ getInteger error handling method later
+            int choice = getInteger(scanner);
+            Plant selectedPlant = null;
 
             switch (choice) {
                 case 1:
-                    Plant selectedPlant = plants.get(0);
-                        System.out.println("---Lauras vätskebehov:---");
-
+                    selectedPlant = plants.get(0);
                     break;
                 case 2:
-                    Plant selectedPlant1 = plants.get(1);
-                    System.out.println("---Olofs vätskebehov:---");
-                    System.out.println("Liquidtype:" + " " + (selectedPlant1.getLiquidType()));
-                    System.out.println("Liquidamount:" + " " + (selectedPlant1.calculateDailyAmountLitres()) + "L");
+                    selectedPlant = plants.get(1);
                     break;
                 case 3:
-                    Plant selectedPlant2 = plants.get(2);
-                    System.out.println("---Igges vätskebehov:---");
-                    System.out.println("Liquidtype:" + " " + (selectedPlant2.getLiquidType()));
-                    System.out.println("Liquidamount:" + " " + (selectedPlant2.calculateDailyAmountLitres()) + "L");
+                    selectedPlant = plants.get(2);
                     break;
                 case 4:
-                    Plant selectedPlant3 = plants.get(3);
-                    System.out.println("---Meatloafs vätskebehov:---");
-                    System.out.println("Liquidtype:" + " " + (selectedPlant3.getLiquidType()));
-                    System.out.println("Liquidamount:" + " " + (selectedPlant3.calculateDailyAmountLitres()) + "L");
+                    selectedPlant = plants.get(3);
                     break;
                 case 5:
                     System.out.println("Avslutar programmet...");
@@ -49,12 +39,19 @@ public class Main {
                 default:
                     System.out.println("Ogiltigt val.");
             }
+
+            if (selectedPlant != null){
+                displayLiquidRequirements(selectedPlant);
+            }
         }
+
+
     }
 
     public static void displayLiquidRequirements(Plant plant){
-        System.out.println("Liquidtype:" + " " + (selectedPlant.getLiquidType()));
-        System.out.println("Liquidamount:" + " " + (selectedPlant.calculateDailyAmountLitres()) + "L");
+        System.out.println("---" + plant.getName() + "s vätskebehov---");
+        System.out.println("Liquidtype:" + " " + (plant.getLiquidType().getDisplayName()));
+        System.out.println("Liquidamount:" + " " + (plant.calculateDailyAmountLitres()) + "L");
     }
 
     public static void showMenu() {
@@ -65,5 +62,16 @@ public class Main {
         System.out.println("4. Meatloaf");
         System.out.println("5. Avsluta program");
         System.out.println("Var vänlig och mata in ett nummer!");
+    }
+
+    public static int getInteger(Scanner scanner) {
+
+        while (!scanner.hasNextInt()) {
+            System.out.println("Ogiltigt val. Ange ett heltal!");
+            scanner.next();
+        }
+
+        return scanner.nextInt();
+
     }
 }
