@@ -52,9 +52,9 @@ public class Main {
 
     public static void displayLiquidRequirements(Plant plant){
         System.out.println("---" + plant.getName() + "s vätskebehov---");
+        System.out.println(plant.getName() + " " + "är en" + " " + plant.getClass().getSimpleName());
         System.out.println("Liquidtype:" + " " + (plant.getLiquidType().getDisplayName()));
         System.out.println("Liquidamount:" + " " + (plant.calculateDailyAmountLitres()) + "L");
-        System.out.println(plant.getName() + " " + "är en" + " " + plant.getClass()); //Fix so that it doesn't print "Class"
     }
 
     public static void showMenu() {
