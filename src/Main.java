@@ -35,16 +35,18 @@ public class Main {
                     break;
                 case 5:
                     System.out.println("Avslutar programmet...");
+                    scanner.close();
                     return;
                 default:
                     System.out.println("Ogiltigt val.");
             }
 
+
+
             if (selectedPlant != null){
                 displayLiquidRequirements(selectedPlant);
             }
         }
-
 
     }
 
@@ -52,6 +54,7 @@ public class Main {
         System.out.println("---" + plant.getName() + "s vätskebehov---");
         System.out.println("Liquidtype:" + " " + (plant.getLiquidType().getDisplayName()));
         System.out.println("Liquidamount:" + " " + (plant.calculateDailyAmountLitres()) + "L");
+        System.out.println(plant.getName() + " " + "är en" + " " + plant.getClass()); //Fix so that it doesn't print "Class"
     }
 
     public static void showMenu() {
@@ -72,6 +75,5 @@ public class Main {
         }
 
         return scanner.nextInt();
-
     }
 }
