@@ -6,74 +6,85 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
+        // POLYMORFISM: ArrayListan kan innehålla olika subklasser av Plant, eftersom Palm, Cactus
+        // och CarnivorousPlant ärver från Plant.
         ArrayList<Plant> plants = new ArrayList<>();
 
-        plants.add(new Palm("Laura", 5));
-        plants.add(new Palm("Olof", 1));
-        plants.add(new Cactus("Igge", 0.2));
-        plants.add(new CarnivorousPlant("Meatloaf", 0.7));
+        for (HotelPlant hotelPlant : HotelPlant.values()) {
+
+            switch (hotelPlant.getPlantType()) {
+                // ARV OCH POLYMORFISM: Vi skapar rätt subklass och lägger objektet i
+                // en lista av typen Plant.
+                case PALM:
+                    plants.add(new Palm(
+                            hotelPlant.getName(),
+                            hotelPlant.getHeight()));
+                    break;
+
+                case CACTUS:
+                    plants.add(new Cactus(
+                            hotelPlant.getName(),
+                            hotelPlant.getHeight()));
+                    break;
+
+                case CARNIVOROUS:
+                    plants.add(new CarnivorousPlant(
+                            hotelPlant.getName(),
+                            hotelPlant.getHeight()));
+                    break;
+            }
+        }
+
 
         while (true) {
 
             showMenu();
 
-            int choice = getInteger(scanner);
+            String plantNameInput = scanner.nextLine().trim();
+
+            if (plantNameInput.equalsIgnoreCase("avsluta")) {
+                System.out.println("Avslutar programmet...");
+                break;
+            }
+
             Plant selectedPlant = null;
 
-            switch (choice) {
-                case 1:
-                    selectedPlant = plants.get(0);
+            for (Plant plant : plants) {
+                if (plant.getName().equalsIgnoreCase(plantNameInput)) {
+                    selectedPlant = plant;
                     break;
-                case 2:
-                    selectedPlant = plants.get(1);
-                    break;
-                case 3:
-                    selectedPlant = plants.get(2);
-                    break;
-                case 4:
-                    selectedPlant = plants.get(3);
-                    break;
-                case 5:
-                    System.out.println("Avslutar programmet...");
-                    scanner.close();
-                    return;
-                default:
-                    System.out.println("Ogiltigt val.");
+                }
             }
 
-
-
-            if (selectedPlant != null){
-                displayLiquidRequirements(selectedPlant);
+            if (selectedPlant != null) {
+                displayLiquidRequirements(selectedPlant); //Polymorphism
+            } else {
+                System.out.println("Hittade ingen växt med det namnet. Försök igen!");
             }
+
         }
 
+        scanner.close();
     }
 
-    public static void displayLiquidRequirements(Plant plant){
-        System.out.println("---" + plant.getName() + "s vätskebehov---");
-        System.out.println(plant.getName() + " " + "är en" + " " + plant.getClass().getSimpleName());
-        System.out.println("Liquidtype:" + " " + (plant.getLiquidType().getDisplayName()));
-        System.out.println("Liquidamount:" + " " + (plant.calculateDailyAmountLitres()) + "L");
+public static void displayLiquidRequirements(Plant plant) {
+    // POLYMORFISM: Den faktiska växtens implementation av metoden anropas beroende på om objektet.
+    // är en Palm, Cactus eller CarnivorousPlant
+    System.out.println("---" + plant.getName() + "s vätskebehov---");
+    System.out.println(plant.getName() + " " + "är en" + " " + plant.getClass().getSimpleName());
+    System.out.println("Liquidtype:" + " " + (plant.getLiquidType().getDisplayName()));
+    System.out.println("Liquidamount:" + " " + (plant.calculateDailyAmountLitres()) + "L");
+}
+
+
+public static void showMenu() {
+
+    System.out.println("--- Vilken växt ska få vätska ---");
+
+    for (HotelPlant hotelPlant : HotelPlant.values()) {
+        System.out.println("- " + hotelPlant.getName());
     }
 
-    public static void showMenu() {
-        System.out.println("----Vilken växt ska få vetska?----");
-        System.out.println("1. Laura");
-        System.out.println("2. Olof");
-        System.out.println("3. Igge");
-        System.out.println("4. Meatloaf");
-        System.out.println("5. Avsluta program");
-        System.out.println("Var vänlig och mata in ett nummer!");
-    }
-
-    public static int getInteger(Scanner scanner) {
-
-        while (!scanner.hasNextInt()) {
-            System.out.println("Ogiltigt val. Ange ett heltal!");
-            scanner.next();
-        }
-
-        return scanner.nextInt();
-    }
+    System.out.println("Skriv önskad växts namn eller 'avsluta' för att avsluta programmet:");
+}
 }

@@ -1,14 +1,17 @@
+// ARV: Cactus ärver från Plant.
 public class Cactus extends Plant {
 
-    private static final double daily_amount_litres = 0.02;
+    // INKAPSLING: Privat konstant som lagrar kaktusens dagliga vätskebehov.
+    private static final double DAILY_AMOUNT_LITRES = 0.02;
 
-    public Cactus(String name, double heightInMetres){
+    public Cactus(String name, double heightInMetres) {
         super(name, heightInMetres);
     }
 
+    // POLYMORFISM: Cactus har sin egen implementation av metoden som deklareras i superklassen Plant.
     @Override
     public double calculateDailyAmountLitres() {
-        return  daily_amount_litres;
+        return  DAILY_AMOUNT_LITRES;
     }
 
     @Override

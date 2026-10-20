@@ -1,14 +1,17 @@
+// ARV: Palm ärver egenskaper från Plant.
 public class Palm extends Plant {
 
-    private static final double litres_per_meter = 0.5;
+    // INKAPSLING: Konstanten är private och kan inte nås direkt från andra klasser.
+    private static final double LITRES_PER_METER = 0.5;
 
-    public Palm(String name, double heightInMetres){
+    public Palm(String name, double heightInMetres) {
         super(name, heightInMetres);
     }
 
+    //POLYMORFISM: Palm har sin egen implementation av metoden som deklareras i superklassen Plant.
     @Override
     public double calculateDailyAmountLitres() {
-        return litres_per_meter * getHeight();
+        return LITRES_PER_METER * getHeight();
     }
 
     @Override

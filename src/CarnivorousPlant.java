@@ -1,15 +1,18 @@
+// ARV: CarnivorousPlant ärver från superklassen Plant.
 public class CarnivorousPlant extends Plant {
 
-    private static final double base_amount_litres = 0.1;
-    private static final double litres_per_meter = 0.2;
+    // INKAPSLING: Privata konstanter för beräkningen.
+    private static final double BASE_AMOUNT_LITRES = 0.1;
+    private static final double LITRES_PER_METER = 0.2;
 
-    public CarnivorousPlant(String name, double heightInMetres){
+    public CarnivorousPlant(String name, double heightInMetres) {
         super(name, heightInMetres);
     }
 
+    // POLYMORFISM: CarnivorousPlant har sin egen implementation av metoden som deklareras i superklassen Plant.
     @Override
     public double calculateDailyAmountLitres() {
-        return base_amount_litres + (litres_per_meter * getHeight());
+        return BASE_AMOUNT_LITRES + (LITRES_PER_METER * getHeight());
     }
 
     @Override
